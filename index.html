@@ -4,11 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/finger-lakes-hvac/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // GitHub Pages SPA redirect — restore path from query param set by 404.html
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+        // Also handle the ?p= query param approach
+        var search = location.search;
+        if (search.slice(1,3) === 'p=') {
+          var decoded = '/' + search.slice(3).replace(/~and~/g, '&');
+          var query = decoded.indexOf('&q=') !== -1
+            ? '?' + decoded.slice(decoded.indexOf('&q=') + 3)
+            : '';
+          var path = decoded.indexOf('&q=') !== -1
+            ? decoded.slice(0, decoded.indexOf('&q='))
+            : decoded;
+          history.replaceState(null, null,
+            location.pathname.split('/').slice(0, 2).join('/') + path + query + location.hash
+          );
+        }
+      })();
+    </script>
     <meta name="description" content="Finger Lakes HVAC & R Inc. - Professional heating, cooling and refrigeration services for residential, commercial and industrial customers in the Finger Lakes region of New York. Available 24/7 for emergencies." />
     <meta name="keywords" content="HVAC, heating, cooling, refrigeration, Finger Lakes, NY, Corning, Elmira, Big Flats, emergency HVAC" />
     <title>Finger Lakes HVAC & R Inc. | Heating, Cooling & Refrigeration</title>
-    <script type="module" crossorigin src="/finger-lakes-hvac/assets/index-ckzs64my.js"></script>
-    <link rel="stylesheet" crossorigin href="/finger-lakes-hvac/assets/index-BtLVBkTl.css">
+    <script type="module" crossorigin src="/finger-lakes-hvac/assets/index-BF4vusdS.js"></script>
+    <link rel="stylesheet" crossorigin href="/finger-lakes-hvac/assets/index-Ce7JdCNb.css">
   </head>
   <body>
     <div id="root"></div>
